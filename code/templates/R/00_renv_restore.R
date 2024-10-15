@@ -6,4 +6,5 @@ if (!requireNamespace("renv", quietly = TRUE)) {
 }
 
 # Restore the project's package environment
+renv::activate()
 renv::restore()
