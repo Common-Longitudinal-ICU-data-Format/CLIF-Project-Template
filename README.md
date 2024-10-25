@@ -34,13 +34,15 @@ The following tables are required:
 ## 1. Update `config/config.json`
 Follow instructions in the [config/README.md](config/README.md) file for detailed configuration steps.
 
+**Note: if using the `01_run_cohort_id_app.R` file, this step is not necessary as the app will create the config file for the user**
+
 ## 2. Set up the project environment
 
 *Describe the steps to setup the project environment.*
 
 Example for R:
-run `00_renv_restore.R` in the `code` folder
- 
+Run `00_renv_restore.R` in the [code](code/templates/R) to set up the project environment
+
 Example for Python:
 Open your terminal and run the following commands:
 ```
@@ -49,11 +51,12 @@ source .mobilization/bin/activate
 pip install -r requirements.txt 
 ```
 
-## 3. Run cohort identification and analysis code
+## 3. Run code
+
 Detailed instructions on the code workflow are provided in the [code directory](code/README.md)
 
 ## Example Repositories
-* [CLIF Adult Sepsis Events](https://github.com/08wparker/CLIF_adult_sepsis_events) for R
+* [CLIF Adult Sepsis Events](https://github.com/08wparker/CLIF_sepsis) for R
 * [CLIF Eligibility for mobilization](https://github.com/kaveriC/mobilization) for Python
 ---
 
