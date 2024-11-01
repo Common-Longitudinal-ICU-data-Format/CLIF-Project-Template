@@ -59,7 +59,6 @@ Detailed instructions on the code workflow are provided in the [code directory](
 * [CLIF Adult Sepsis Events](https://github.com/08wparker/CLIF_sepsis) for R
 * [CLIF Eligibility for mobilization](https://github.com/kaveriC/CLIF-eligibility-for-mobilization) for Python
 * [CLIF Variation in Ventilation](https://github.com/ingra107/clif_vent_variation)
-* [CLIF Prone Positioning Use in Severe Hypoxemic Respiratory Failure Over Time](https://github.com/chochbe1/CLIF_prone_incidence_severeARF)
 ---
 
 
