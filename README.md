@@ -1,5 +1,9 @@
 # *CLIF Project Title*
 
+## CLIF VERSION 
+
+[major].[minor]
+
 ## Objective
 
 *Describe the project objective*
