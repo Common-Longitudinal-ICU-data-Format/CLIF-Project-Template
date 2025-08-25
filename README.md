@@ -48,7 +48,15 @@ Example for R:
 Run `00_renv_restore.R` in the [code](code/templates/R) to set up the project environment
 
 Example for Python:
-Open your terminal and run the following commands:
+
+**Preferred method using uv:**
+```
+uv init project-name
+cd project-name
+```
+Note: uv automatically creates virtual environments and manages dependencies. It generates required files like `uv.lock` for reproducible builds. For more details, see the [CLIF uv guide by Zewei Whiskey Liao](https://github.com/Common-Longitudinal-ICU-data-Format/CLIF-data-huddles/blob/main/notes/uv-and-conv-commits.md).
+
+**Alternative method using python3:**
 ```
 python3 -m venv .mobilization
 source .mobilization/bin/activate
