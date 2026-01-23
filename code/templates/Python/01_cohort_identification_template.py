@@ -6,8 +6,33 @@ import numpy as np
 from datetime import datetime
 import pyarrow.parquet as pq
 import time
-from utils import config
+from utils import config 
+from clifpy.tables import Patient, Hospitalization, Labs, Vitals, RespiratorySupport, MedicationAdminContinuous
+from clifpy import ClifOrchestrator
 
+# Setup and Load Data
+
+# ==============================================================================
+# OPTION A: Using `clifpy` (Recommended, less verbose)
+# ==============================================================================
+
+# Provide the path to your CLIF config file
+# Use a generalized path for the config file, assuming it is always at 'config/config_template.json' relative to the project root
+config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "config", "config_template.json")
+co = ClifOrchestrator(config_path=os.path.abspath(config_path))
+print("Loading required tables...")
+co.initialize(
+    tables=['patient', 'hospitalization', 'labs', 'vitals', 'respiratory_support', 'medication_admin_continuous'])
+co.get_loaded_tables()
+
+# ==============================================================================
+# END OPTION A
+# ==============================================================================
+
+
+# ==============================================================================
+# OPTION B: Manual setup and data loading
+# ==============================================================================
 # Add the parent directory of the current script to the Python path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
@@ -19,26 +44,10 @@ site_name = config['site_name']
 tables_path = config['tables_path']
 file_type = config['file_type']
 
-
 # Print the configuration parameters
 print(f"Site Name: {site_name}")
 print(f"Tables Path: {tables_path}")
 print(f"File Type: {file_type}")
-
-# Your cohort identification code here
-# Cohort identification script for inpatient admissions
-# Objective: identify a cohort of hospitalizations from CLIF tables
-# Identify patients admitted to the hospital in a given date range. 
-# Export a list of `hospitalization_id` and filtered CLIF tables for the 
-# identified hospitalizations.
-# An example project for this cohort would be included for surveillance of 
-# sepsis events based on the CDC Adult Sepsis Event criteria.
-
-# Specify inpatient cohort parameters
-
-## Date range
-start_date = "2020-01-01"
-end_date = "2021-12-31"
 
 ## Confirm that these are the correct paths
 adt_filepath = f"{tables_path}/clif_adt.{file_type}"
@@ -87,8 +96,30 @@ clif_labs = read_data(labs_filepath, file_type)
 clif_medication_admin_continuous = read_data(meds_filepath, file_type)
 clif_respiratory_support = read_data(resp_support_filepath, file_type)
 
+# ==============================================================================
+# END OPTION B
+# ==============================================================================
+
+# Your cohort identification code here
+# Cohort identification script for inpatient admissions
+# Objective: identify a cohort of hospitalizations from CLIF tables
+# Identify patients admitted to the hospital in a given date range. 
+# Export a list of `hospitalization_id` and filtered CLIF tables for the 
+# identified hospitalizations.
+# An example project for this cohort would be included for surveillance of 
+# sepsis events based on the CDC Adult Sepsis Event criteria.
+
+# Specify inpatient cohort parameters
+
+## Date range
+start_date = "2020-01-01"
+end_date = "2021-12-31"
 
 # Ensure datetime format is correct
+# NOTE: If using Option A (clifpy)
+clif_hospitalization = co.hospitalization.df.copy()
+# If using Option B (direct file loading): clif_hospitalization is already loaded
+
 clif_hospitalization['admission_dttm'] = pd.to_datetime(clif_hospitalization['admission_dttm'])
 
 # Step 1: Filter admissions between March 1, 2020 and March 31, 2022
