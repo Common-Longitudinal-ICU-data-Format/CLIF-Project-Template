@@ -9,12 +9,19 @@ the consortium.
 > **Python** ([`code/templates/Python/`](code/templates/Python)). A project can be built in
 > **R, Python, or both**.
 
-## 👉 Choose your guide
+## 👉 Start here
 
-| If you are... | Read this |
-|---------------|-----------|
-| 🔧 **Building a new project** from this template | **[Project Creator Guide → `README_PROJECT_CREATOR.md`](README_PROJECT_CREATOR.md)** — pick your language(s), set up the environment, and customize the project for the sites that will run it. |
-| 📦 **Running a finished project** (a consortium site) | **[Project README → `README_PROJECT.md`](README_PROJECT.md)** — the customized, run-it-yourself guide for the specific project. *(Project creators must customize this file for their cloners.)* |
+**🔧 Building a project from this template (project creator)?** You must complete **both** guides,
+**in order** — this is mandatory:
+
+1. **[Project Creator Guide → `README_PROJECT_CREATOR.md`](README_PROJECT_CREATOR.md)** — pick your
+   language(s), set up the environment, and follow the data-security rules.
+2. **[Project README → `README_PROJECT.md`](README_PROJECT.md)** — **customize this file** to describe
+   your project for the consortium sites that will run it.
+
+**📦 Running a finished project (consortium site)?** Read the project's customized
+**[Project README → `README_PROJECT.md`](README_PROJECT.md)** — the run-it-yourself guide for that
+specific project.
 
 ## CLIF resources
 
