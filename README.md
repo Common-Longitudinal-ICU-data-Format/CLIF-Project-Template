@@ -5,17 +5,16 @@ the consortium.
 
 ## 👉 Start here
 
-**🔧 Building a project from this template (project creator)?** You must complete **both** guides,
-**in order** — this is mandatory:
+> [!IMPORTANT]
+> ### 🔧 Building a project from this template? (project creator)
+> Complete **both** steps below, **in order** — this is **mandatory**:
+>
+> - [ ] **Step 1 · [Project Creator Guide →](README_PROJECT_CREATOR.md)** — pick your language(s), set up the environment, and follow the data-security rules.
+> - [ ] **Step 2 · [Project README →](README_PROJECT.md)** — **customize this file** to describe your project for the consortium sites that will run it.
 
-1. **[Project Creator Guide → `README_PROJECT_CREATOR.md`](README_PROJECT_CREATOR.md)** — pick your
-   language(s), set up the environment, and follow the data-security rules.
-2. **[Project README → `README_PROJECT.md`](README_PROJECT.md)** — **customize this file** to describe
-   your project for the consortium sites that will run it.
-
-**📦 Running a finished project (consortium site)?** Read the project's customized
-**[Project README → `README_PROJECT.md`](README_PROJECT.md)** — the run-it-yourself guide for that
-specific project.
+> [!NOTE]
+> ### 📦 Running a finished project? (consortium site)
+> Read the project's customized **[Project README →](README_PROJECT.md)** — the run-it-yourself guide for that specific project.
 
 ## Example Repositories
 * [CLIF Adult Sepsis Events](https://github.com/08wparker/CLIF_sepsis) for R
