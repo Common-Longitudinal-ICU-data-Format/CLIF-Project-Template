@@ -17,14 +17,6 @@ the consortium.
 **[Project README → `README_PROJECT.md`](README_PROJECT.md)** — the run-it-yourself guide for that
 specific project.
 
-## CLIF resources
-
-- [CLIF data dictionary](https://clif-icu.com/data-dictionary)
-- [CLIF Tools](https://clif-icu.com/tools)
-- [ETL Guide](https://clif-icu.com/etl-guide)
-- [clifpy (Python package)](https://common-longitudinal-icu-data-format.github.io/clifpy/) and its [user guide](https://common-longitudinal-icu-data-format.github.io/clifpy/user-guide/)
-- [`docs/primer.md`](docs/primer.md) — practical guide to building CLIF projects
-
 ## Example Repositories
 * [CLIF Adult Sepsis Events](https://github.com/08wparker/CLIF_sepsis) for R
 * [CLIF Eligibility for mobilization](https://github.com/kaveriC/CLIF-eligibility-for-mobilization) for Python
