@@ -3,12 +3,6 @@
 A starting template for building reproducible [CLIF](https://clif-icu.com/) projects that run across
 the consortium.
 
-> [!IMPORTANT]
-> **This repository is a project template, and it ships TWO code templates** —
-> **R** ([`code/templates/R/`](code/templates/R)) and
-> **Python** ([`code/templates/Python/`](code/templates/Python)). A project can be built in
-> **R, Python, or both**.
-
 ## 👉 Start here
 
 **🔧 Building a project from this template (project creator)?** You must complete **both** guides,

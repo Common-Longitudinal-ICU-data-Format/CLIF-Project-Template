@@ -6,7 +6,7 @@ finished repository will read **[`README_PROJECT.md`](README_PROJECT.md)** (whic
 Step 4), not this file.
 
 > [!IMPORTANT]
-> This repository ships **two code templates** — **R** ([`code/templates/R/`](code/templates/R)) and
+> **This repository ships TWO code templates** — **R** ([`code/templates/R/`](code/templates/R)) and
 > **Python** ([`code/templates/Python/`](code/templates/Python)). A project can be built in **R,
 > Python, or both**. Set up the environment(s) for whichever language(s) your project uses.
 
