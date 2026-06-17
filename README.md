@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > **Building a project from this template?** Read the
-> [Project Creator Guide](docs/creator-guide.md) first, then **delete this note** and customize the
+> [Project Creator Guide](guides/creator-guide.md) first, then **delete this note** and customize the
 > sections below to describe your project for the consortium sites that will run it.
 
 ## CLIF VERSION
@@ -52,7 +52,7 @@ See the [clifpy user guide](https://common-longitudinal-icu-data-format.github.i
 > - No raw `.csv` / `.parquet` data files.
 >
 > See [`output/README.md`](output/README.md) for the file-naming convention and
-> [`docs/primer.md`](docs/primer.md) for the full data-security rules.
+> [`guides/primer.md`](guides/primer.md) for the full data-security rules.
 
 ## Detailed Instructions for running the project
 

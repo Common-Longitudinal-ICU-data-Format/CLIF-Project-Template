@@ -99,8 +99,24 @@ identification criteria, and expected results. It is the run-it-yourself guide y
 follow (they reproduce your environment with `uv sync` / `00_renv_restore.R`). **Delete the
 "Building a project from this template?" note at the top** once you have customized it.
 
+## Step 5 — Buddy test before distributing
+
+Before releasing the project to the whole consortium, have **one other site** run it end to end on
+their own data as a validation gate. Recruit a buddy (ideally at a different institution / EHR), point
+them at the **[Buddy Testing Guide](buddy-testing-guide.md)**, and have them return a filled
+[`buddy-test-report-template.md`](buddy-test-report-template.md) as `BUDDY_TEST_REPORT.md`.
+
+Fix any blocking issues they find. Once the report is a **Pass**, add a validation stamp near the top
+of [`README.md`](../README.md) (just below the title) so cloning sites can see it was validated:
+
+```markdown
+> ✅ Buddy-tested by **[Site]** on **[YYYY-MM-DD]** — see [`BUDDY_TEST_REPORT.md`](BUDDY_TEST_REPORT.md).
+```
+
 ## Where to go deeper
 
+- **[`buddy-testing-guide.md`](buddy-testing-guide.md)** — pre-distribution validation: what a buddy
+  site checks when running your project.
 - **[`primer.md`](primer.md)** — practical guide to building CLIF projects (cohort workflow,
   optimization tips, data security, common errors).
 - **[`code/README.md`](../code/README.md)** — the script workflow (cohort identification → quality
