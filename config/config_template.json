@@ -1,5 +1,7 @@
 {
     "site_name": "Your_Site_Name",
-    "tables_path": "/path/to/tables/",
-    "file_type": "csv/parquet/fst"
+    "data_directory": "clif_demo",
+    "filetype": "parquet",
+    "timezone": "US/Eastern",
+    "output_directory": "./output"
 }

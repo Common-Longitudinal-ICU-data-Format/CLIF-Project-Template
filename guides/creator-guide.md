@@ -18,14 +18,12 @@ Rename `config_template.json` to `config.json` and fill in your site-specific se
 [`config/README.md`](../config/README.md) for details. The `.gitignore` in that directory keeps your
 config out of the remote repository.
 
-**Note:** if your project uses the `01_run_cohort_id_app.R` file, this step is not necessary — the app
-creates the config file for the user.
-
 ## Step 2 — Set up the project environment
 
 This template ships starter scripts for both languages in
 [`code/templates/`](../code/templates). Build your project in **R**, **Python**, or **both** — set up
-only the language(s) you'll use.
+only the language(s) you'll use. The scripts are **suggested examples, not a fixed ruleset** — a
+shared convention to start from; adapt, restructure, or replace them as your project needs.
 
 ### Python (using uv)
 
@@ -123,6 +121,4 @@ of [`README.md`](../README.md) (just below the title) so cloning sites can see i
   checks → outlier handling → analysis).
 - **[`config/README.md`](../config/README.md)** — configuration details.
 
-## Example Repositories
-* [CLIF Eligibility for mobilization](https://github.com/kaveriC/CLIF-eligibility-for-mobilization) for Python
-* [CLIF Variation in Ventilation](https://github.com/ingra107/clif_vent_variation) for R
+See the [project README](../README.md#example-repositories) for example CLIF project repositories.

@@ -26,7 +26,7 @@ Pass with notes is only for the Overall verdict at the bottom.
 | 4 | Runs end to end with no manual edits between steps | Pass / Fail | |
 | 5 | Outputs in `output/final_no_phi/` with right naming/type, no raw dumps | Pass / Fail | |
 | 6 | **Data security**: no PHI, every stat n ≥ 10, no raw data *(blocking)* | Pass / Fail | |
-| 7 | Clinical sanity: aggregates plausible for an ICU cohort | Pass / Fail | |
+| 7 | Clinical sanity: aggregates plausible for the cohort | Pass / Fail | |
 | 8 | Documentation usable: could run from the README alone | Pass / Fail | |
 
 ## Overall verdict

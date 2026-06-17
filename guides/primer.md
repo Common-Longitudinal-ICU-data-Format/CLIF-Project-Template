@@ -33,8 +33,9 @@ Output: A filtered list of `hospitalization_id`s meeting your inclusion/exclusio
 
 Once the cohort is finalized:
 
-- Use clifpy's `load_data()` function to filter CLIF tables to your cohort
-- Specify only the required fields and mCIDE categories
+- Use clifpy to load only your cohort's tables — `ClifOrchestrator(config_path=...).initialize(...)`,
+  or the individual table classes' `from_file(...)`
+- Filter by `hospitalization_id` and the mCIDE categories you need **at load time**
 - This keeps memory usage manageable
 
 ### Step 4: Build Patient Trajectories
@@ -48,7 +49,7 @@ For time-series data like respiratory support or CRRT:
 
 | Tip | Why |
 |:----|:----|
-| Use vectorized operations | Loops are slow; Polars/pandas vectorized ops are fast |
+| Use vectorized operations | Loops are slow; pandas vectorized ops are fast |
 | Use efficient dtypes | `Int8` for flags/dummies instead of `Int64` saves memory |
 | Load `*_category` as lowercase | Consistent casing prevents matching bugs |
 | Never use `*_name` fields | Always use `*_category` — these are harmonized and standardized in the CLIF schema |
@@ -71,13 +72,15 @@ data/
 
 ```python
 # ❌ Bad - sharing patient-level data
-results = df.select("patient_id", "outcome")
+results = df[["patient_id", "outcome"]]
 
-# ✅ Good - sharing only aggregates
-results = df.group_by("hospitalization_id").agg([
-    pl.count().alias("n"),
-    pl.col("outcome").mean().alias("mortality_rate")
-])
+# ✅ Good - sharing only aggregates, and dropping any cell with n < 10
+results = (
+    df.groupby("sex_category")
+    .agg(n=("hospitalization_id", "nunique"), mortality_rate=("outcome", "mean"))
+    .reset_index()
+)
+results = results[results["n"] >= 10]
 ```
 
 ### Minimum Cell Sizes
@@ -91,8 +94,8 @@ For any summary statistics, ensure minimum cell sizes (typically n ≥ 10) to pr
 | Error | Cause | Fix |
 |:------|:------|:----|
 | "Column not found" | Wrong column name | Check the [CLIF data dictionary](https://clif-icu.com/data-dictionary) |
-| DateTime parsing errors | Column not parsed as datetime | Use `pl.col("dttm").str.to_datetime()` |
-| Memory errors | Loading too much data | Use lazy evaluation: `pl.scan_parquet()` then `.collect()` |
+| DateTime parsing errors | Column not parsed as datetime | Use `pd.to_datetime(df["dttm"])` |
+| Memory errors | Loading too much data | Load only the columns you need and filter by `hospitalization_id` at load time (clifpy does this for you) |
 | Validation failures | Categories don't match mCIDE | Check `df["category"].unique()` against mCIDE |
 
 ---
@@ -106,4 +109,4 @@ For any summary statistics, ensure minimum cell sizes (typically n ≥ 10) to pr
 
 ---
 
-*Have improvements? PR/Issue to [CLIF-Project-Template](https://github.com/Common-Longitudinal-ICU-data-Format/CLIF-Project-Template) 
+*Have improvements? Open a PR or issue on [CLIF-Project-Template](https://github.com/Common-Longitudinal-ICU-data-Format/CLIF-Project-Template).*

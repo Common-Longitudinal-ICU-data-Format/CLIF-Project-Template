@@ -1,3 +1,5 @@
 ## Utils directory
 
-This directory provides utility functions that are commonly used for a particular project or across CLIF projects. The directory contains the cnfig functions for R and python, that faciliates the use of `config/config.json`.
+This directory provides utility functions that are commonly used for a particular project or across
+CLIF projects. It contains the config helpers for R (`config.R`) and Python (`config.py`) that
+facilitate reading `config/config.json`.

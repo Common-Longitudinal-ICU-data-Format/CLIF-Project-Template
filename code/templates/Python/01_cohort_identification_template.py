@@ -1,137 +1,73 @@
-# Load required libraries
-import sys
-import os
+"""
+01 — Cohort identification (worked example)
+
+This is the one fully worked Python template in this project. It demonstrates the CLIF idiom end to
+end; steps 02–04 are skeletons for you to fill in.
+
+Run from the PROJECT ROOT, e.g.:
+    uv run python code/01_cohort_identification_template.py
+
+What it does:
+  1. Initialize clifpy from config/config.json
+  2. Load the tables this project needs
+  3. Build a simple cohort  (EDIT the criteria for your project)
+  4. Save patient-level working data to output/intermediate_phi/  (NEVER shared, git-ignored)
+  5. Save a shareable aggregate to output/final_no_phi/           (no row-level data, every cell n >= 10)
+"""
+
+from pathlib import Path
+
 import pandas as pd
-import numpy as np
-from datetime import datetime
-import pyarrow.parquet as pq
-import time
-from utils import config 
-from clifpy.tables import Patient, Hospitalization, Labs, Vitals, RespiratorySupport, MedicationAdminContinuous
 from clifpy import ClifOrchestrator
 
-# Setup and Load Data
+INTERMEDIATE_DIR = Path("output/intermediate_phi")  # patient-level — stays at your site
+FINAL_DIR = Path("output/final_no_phi")             # aggregate — safe to share
 
-# ==============================================================================
-# OPTION A: Using `clifpy` (Recommended, less verbose)
-# ==============================================================================
+# 1. Initialize clifpy from the config file (it reads data_directory / filetype / timezone).
+#    config.json defaults to the bundled clif_demo/ dataset, so this runs out of the box;
+#    point data_directory at your CLIF tables for a real run.
+co = ClifOrchestrator(config_path="config/config.json")
 
-# Provide the path to your CLIF config file
-# Use a generalized path for the config file, assuming it is always at 'config/config_template.json' relative to the project root
-config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "config", "config_template.json")
-co = ClifOrchestrator(config_path=os.path.abspath(config_path))
-print("Loading required tables...")
-co.initialize(
-    tables=['patient', 'hospitalization', 'labs', 'vitals', 'respiratory_support', 'medication_admin_continuous'])
-co.get_loaded_tables()
+# 2. Load the tables this project needs. clifpy raises a clear error if a table is missing.
+co.initialize(tables=["patient", "hospitalization", "adt"])
+hospitalization = co.hospitalization.df.copy()
+adt = co.adt.df.copy()
 
-# ==============================================================================
-# END OPTION A
-# ==============================================================================
+# 3. Build the cohort — EDIT these criteria for your project.
+START_DATE, END_DATE = "2020-01-01", "2021-12-31"
+hospitalization["admission_dttm"] = pd.to_datetime(hospitalization["admission_dttm"])
 
+# CLIF category values are lowercase.
+inpatient_ids = adt.loc[
+    adt["location_category"].isin(["ward", "icu"]), "hospitalization_id"
+].unique()
 
-# ==============================================================================
-# OPTION B: Manual setup and data loading
-# ==============================================================================
-# Add the parent directory of the current script to the Python path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
-# Use the imported config
-# Access configuration parameters
-site_name = config['site_name']
-tables_path = config['tables_path']
-file_type = config['file_type']
-
-# Print the configuration parameters
-print(f"Site Name: {site_name}")
-print(f"Tables Path: {tables_path}")
-print(f"File Type: {file_type}")
-
-## Confirm that these are the correct paths
-adt_filepath = f"{tables_path}/clif_adt.{file_type}"
-hospitalization_filepath = f"{tables_path}/clif_hospitalization.{file_type}"
-vitals_filepath = f"{tables_path}/clif_vitals.{file_type}"
-labs_filepath = f"{tables_path}/clif_labs.{file_type}"
-meds_filepath = f"{tables_path}/clif_medication_admin_continuous.{file_type}"
-resp_support_filepath = f"{tables_path}/clif_respiratory_support.{file_type}"
-
-
-def read_data(filepath, filetype):
-    """
-    Read data from file based on file type.
-    Parameters:
-        filepath (str): Path to the file.
-        filetype (str): Type of the file ('csv' or 'parquet').
-    Returns:
-        DataFrame: DataFrame containing the data.
-    """
-    start_time = time.time()  # Record the start time
-    file_name = os.path.basename(filepath) 
-    if filetype == 'csv':
-        df = pd.read_csv(filepath)
-    elif filetype == 'parquet':
-        table = pq.read_table(filepath)
-        df = table.to_pandas()
-    else:
-        raise ValueError("Unsupported file type. Please provide either 'csv' or 'parquet'.")
-    
-    end_time = time.time()  # Record the end time
-    load_time = end_time - start_time  # Calculate the loading time
-    
-    # Calculate the size of the loaded dataset in MB
-    dataset_size_mb = df.memory_usage(deep=True).sum() / (1024 * 1024)
-    print(f"File name: {file_name}")
-    print(f"Time taken to load the dataset: {load_time:.2f} seconds")
-    print(f"Size of the loaded dataset: {dataset_size_mb:.2f} MB\n")
-    
-    return df
-
-
-clif_adt = read_data(adt_filepath, file_type)
-clif_hospitalization = read_data(hospitalization_filepath, file_type)
-clif_vitals = read_data(vitals_filepath, file_type)
-clif_labs = read_data(labs_filepath, file_type)
-clif_medication_admin_continuous = read_data(meds_filepath, file_type)
-clif_respiratory_support = read_data(resp_support_filepath, file_type)
-
-# ==============================================================================
-# END OPTION B
-# ==============================================================================
-
-# Your cohort identification code here
-# Cohort identification script for inpatient admissions
-# Objective: identify a cohort of hospitalizations from CLIF tables
-# Identify patients admitted to the hospital in a given date range. 
-# Export a list of `hospitalization_id` and filtered CLIF tables for the 
-# identified hospitalizations.
-# An example project for this cohort would be included for surveillance of 
-# sepsis events based on the CDC Adult Sepsis Event criteria.
-
-# Specify inpatient cohort parameters
-
-## Date range
-start_date = "2020-01-01"
-end_date = "2021-12-31"
-
-# Ensure datetime format is correct
-# NOTE: If using Option A (clifpy)
-clif_hospitalization = co.hospitalization.df.copy()
-# If using Option B (direct file loading): clif_hospitalization is already loaded
-
-clif_hospitalization['admission_dttm'] = pd.to_datetime(clif_hospitalization['admission_dttm'])
-
-# Step 1: Filter admissions between March 1, 2020 and March 31, 2022
-admissions_filtered = clif_hospitalization[
-    (clif_hospitalization['admission_dttm'] >= start_date) & 
-    (clif_hospitalization['admission_dttm'] <= end_date)
+cohort = hospitalization[
+    hospitalization["admission_dttm"].between(START_DATE, END_DATE)
+    & (hospitalization["age_at_admission"] >= 18)
+    & hospitalization["hospitalization_id"].isin(inpatient_ids)
 ]
+print(f"Cohort: {cohort['hospitalization_id'].nunique()} hospitalizations")
 
-# Filter for adults (age >= 18)
-cohort = admissions_filtered[admissions_filtered['age_at_admission'] >= 18]
-cohort = cohort[['hospitalization_id']].drop_duplicates()
+# 4. Save patient-level working data (git-ignored, never leaves your site).
+INTERMEDIATE_DIR.mkdir(parents=True, exist_ok=True)
+cohort.to_parquet(INTERMEDIATE_DIR / "cohort.parquet", index=False)
 
-### Apply other inclusion and exclusion criteria ....
-
-### Export the cohort
+# 5. Save a shareable aggregate — never report cells with n < 10 (re-identification risk).
+FINAL_DIR.mkdir(parents=True, exist_ok=True)
+cohort = cohort.assign(
+    age_group=pd.cut(
+        cohort["age_at_admission"],
+        bins=[18, 40, 65, 120],
+        right=False,
+        labels=["18-39", "40-64", "65+"],
+    )
+)
+summary = (
+    cohort.groupby("age_group", observed=True)["hospitalization_id"]
+    .nunique()
+    .reset_index(name="n_hospitalizations")
+)
+summary = summary[summary["n_hospitalizations"] >= 10]  # data-security rule
+summary.to_csv(FINAL_DIR / "cohort_summary.csv", index=False)
+print(f"Wrote {len(summary)} aggregate row(s) to {FINAL_DIR}")
