@@ -83,7 +83,7 @@ subdirectory instead of using this template. For more details, see the
 
 > [!WARNING]
 > **Never upload patient-level data to Box.** Only **aggregate** results may be placed in
-> [`output/final/`](../output/README.md) and shared with the project PI / consortium:
+> [`output/final_no_phi/`](../output/README.md) and shared with the project PI / consortium:
 > - No `patient_id` or any row-level / individual patient records.
 > - Minimum cell size **n ≥ 10** for every reported statistic (prevents re-identification).
 > - No raw `.csv` / `.parquet` data files.

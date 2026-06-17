@@ -248,5 +248,5 @@ table_one_hospitalization <- clif_hospitalization_cohort %>%
 #export the table with gtsummary
 table_one_hospitalization %>% 
   as_gt() %>% 
-  gt::gtsave(filename = here(paste0("output/intermediate/Table_One_", Sys.Date(), "_", 
+  gt::gtsave(filename = here(paste0("output/intermediate_phi/Table_One_", Sys.Date(), "_", 
                                     config$site_name, ".pdf")))

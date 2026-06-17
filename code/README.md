@@ -40,7 +40,7 @@ This directory contains scripts for the project workflow. The general workflow c
 
    Input: cleaned_cohort_data 
 
-   Output: [List of expected result files, e.g., statistical_results, figures, tables saved in the [`output/final`](../output/README.md) directory] 
+   Output: [List of expected result files, e.g., statistical_results, figures, tables saved in the [`output/final_no_phi`](../output/README.md) directory] 
 
 
 

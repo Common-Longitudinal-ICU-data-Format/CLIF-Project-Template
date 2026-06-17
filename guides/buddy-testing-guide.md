@@ -53,7 +53,7 @@ exactly as the [project README](../README.md) instructs:
 - Note total runtime and any memory pressure.
 
 ### 5. Outputs land correctly
-- Final results are written to [`output/final/`](../output/README.md).
+- Final results are written to [`output/final_no_phi/`](../output/README.md).
 - File naming follows the project's convention (e.g. `RESULT_SITE_TIME`).
 - Output files are the expected type (aggregate tables / figures), not raw data dumps.
 
@@ -62,7 +62,7 @@ Inspect **every** file the project would have you share:
 - **No** `patient_id` or any row-level / individual patient records.
 - **Every** reported statistic has cell size **n ≥ 10**.
 - **No** raw `.csv` / `.parquet` patient data among the shareable outputs.
-- Nothing in `output/final/` would be unsafe to upload to Box / send to the PI.
+- Nothing in `output/final_no_phi/` would be unsafe to upload to Box / send to the PI.
 
 Any failure here is an automatic **Fail** regardless of how well everything else ran. See
 [`primer.md`](primer.md) for the full data-security rules.

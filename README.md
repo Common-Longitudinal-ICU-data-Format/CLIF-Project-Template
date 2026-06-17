@@ -42,11 +42,11 @@ See the [clifpy user guide](https://common-longitudinal-icu-data-format.github.i
 
 ## Expected Results
 
-*Describe the output of the analysis. The final project results should be saved in the [`output/final`](output/README.md) directory.*
+*Describe the output of the analysis. The final project results should be saved in the [`output/final_no_phi`](output/README.md) directory.*
 
 > [!WARNING]
 > **Never upload patient-level data to Box.** Only **aggregate** results may be placed in
-> [`output/final/`](output/README.md) and shared with the project PI / consortium:
+> [`output/final_no_phi/`](output/README.md) and shared with the project PI / consortium:
 > - No `patient_id` or any row-level / individual patient records.
 > - Minimum cell size **n ≥ 10** for every reported statistic (prevents re-identification).
 > - No raw `.csv` / `.parquet` data files.
@@ -78,7 +78,7 @@ Run project code inside the managed environment with `uv run python code/<script
 ### 3. Run code
 
 Detailed instructions on the code workflow are provided in the [code directory](code/README.md).
-Final results are written to [`output/final`](output/README.md) — remember the data-security rules
+Final results are written to [`output/final_no_phi`](output/README.md) — remember the data-security rules
 above before sharing anything.
 
 ## Example Repositories
