@@ -1,5 +1,4 @@
 # CLIF Project Primer
-
 **Author:** Kaveri Chhikara
 
 A practical guide to building CLIF projects — from cohort identification to optimized analysis.
@@ -42,7 +41,7 @@ Once the cohort is finalized:
 
 For time-series data like respiratory support or CRRT:
 
-- Use `waterfall()` for respiratory support or CRRT tables
+- Use `waterfall()` for respiratory support
 - Apply appropriate filling logic to create complete event-based patient trajectories
 
 ### Step 5: Optimization Tips
@@ -75,7 +74,7 @@ data/
 results = df.select("patient_id", "outcome")
 
 # ✅ Good - sharing only aggregates
-results = df.group_by("site").agg([
+results = df.group_by("hospitalization_id").agg([
     pl.count().alias("n"),
     pl.col("outcome").mean().alias("mortality_rate")
 ])
@@ -107,4 +106,4 @@ For any summary statistics, ensure minimum cell sizes (typically n ≥ 10) to pr
 
 ---
 
-*Have improvements? PR to [CLIF-Project-Template](https://github.com/Common-Longitudinal-ICU-data-Format/CLIF-Project-Template) or let us know in #clif-code-ecosystem!*
+*Have improvements? PR/Issue to [CLIF-Project-Template](https://github.com/Common-Longitudinal-ICU-data-Format/CLIF-Project-Template) 
