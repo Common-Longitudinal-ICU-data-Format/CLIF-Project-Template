@@ -1,6 +1,6 @@
 {
     "site_name": "Your_Site_Name",
-    "data_directory": "clif_demo",
+    "data_directory": "./clif_demo",
     "filetype": "parquet",
     "timezone": "US/Eastern",
     "output_directory": "./output"
